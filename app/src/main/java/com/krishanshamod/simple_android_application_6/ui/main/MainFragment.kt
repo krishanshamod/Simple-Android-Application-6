@@ -6,9 +6,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.TextView
 import com.krishanshamod.simple_android_application_6.R
 
 class MainFragment : Fragment() {
+
+    private var count = 0
 
     companion object {
         fun newInstance() = MainFragment()
@@ -27,6 +31,16 @@ class MainFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         // TODO: Use the ViewModel
+
+        // Wrong way to update the UI
+        var countButton = view?.findViewById<Button>(R.id.buttonCount)
+        var countText = view?.findViewById<TextView>(R.id.textCount)
+
+        countButton?.setOnClickListener {
+            count++
+            countText?.text = count.toString()
+        }
+
     }
 
 }
