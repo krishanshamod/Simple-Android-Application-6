@@ -12,8 +12,6 @@ import com.krishanshamod.simple_android_application_6.R
 
 class MainFragment : Fragment() {
 
-    private var count = 0
-
     companion object {
         fun newInstance() = MainFragment()
     }
@@ -30,15 +28,20 @@ class MainFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
-        // TODO: Use the ViewModel
 
         // Wrong way to update the UI
-        var countButton = view?.findViewById<Button>(R.id.buttonCount)
-        var countText = view?.findViewById<TextView>(R.id.textCount)
 
+        // Get the TextView from the layout and set the text to the current count
+        var countText = view?.findViewById<TextView>(R.id.textCount)
+        countText?.text = viewModel.count.toString()
+
+        // Get the Button from the layout and set the onClickListener to increment the count
+        var countButton = view?.findViewById<Button>(R.id.buttonCount)
+
+        // Increment the count and update the text
         countButton?.setOnClickListener {
-            count++
-            countText?.text = count.toString()
+            viewModel.incrementCount()
+            countText?.text = viewModel.count.toString()
         }
 
     }
