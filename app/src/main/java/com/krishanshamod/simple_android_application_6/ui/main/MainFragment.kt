@@ -29,19 +29,20 @@ class MainFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 
-        // Wrong way to update the UI
-
-        // Get the TextView from the layout and set the text to the current count
+        // Get the TextView from the layout
         var countText = view?.findViewById<TextView>(R.id.textCount)
-        countText?.text = viewModel.count.toString()
 
-        // Get the Button from the layout and set the onClickListener to increment the count
+        // Observe the count LiveData
+        viewModel.count.observe(viewLifecycleOwner) {
+            countText?.text = it.toString()
+        }
+
+        // Get the Button from the layout
         var countButton = view?.findViewById<Button>(R.id.buttonCount)
 
-        // Increment the count and update the text
+        // Increment the count
         countButton?.setOnClickListener {
             viewModel.incrementCount()
-            countText?.text = viewModel.count.toString()
         }
 
     }
