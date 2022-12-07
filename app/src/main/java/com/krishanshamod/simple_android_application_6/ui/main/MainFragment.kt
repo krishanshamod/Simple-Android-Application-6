@@ -6,8 +6,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import com.krishanshamod.simple_android_application_6.R
 import com.krishanshamod.simple_android_application_6.databinding.FragmentMainBinding
@@ -35,14 +33,12 @@ class MainFragment : Fragment() {
 
         // Observe the count LiveData
         viewModel.count.observe(viewLifecycleOwner) {
-            binding.textCount?.text = it.toString()
+            binding.textCount.text = it.toString()
         }
 
         // Increment the count
-        binding.buttonCount?.setOnClickListener {
+        binding.buttonCount.setOnClickListener {
             viewModel.incrementCount()
         }
-
     }
-
 }
